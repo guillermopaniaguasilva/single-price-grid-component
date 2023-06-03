@@ -6,6 +6,10 @@ export const Container = styled.div`
   min-height: 240px;
   background-color: ${COLORS.CYAN};
   padding: 0 24px;
+
+  @media only screen and (min-width: 600px) {
+    width: 312.5px;
+  }
 `;
 
 export const Heading = styled.h2`

@@ -1,9 +1,27 @@
+import { useState, useEffect } from 'react';
 import './App.css';
-import { Section, Container, Heading, Subheading, Description } from './styles';
+import {
+  Section,
+  Container,
+  Heading,
+  Subheading,
+  Description,
+  DesktopContainer,
+} from './styles';
 import Subscription from '../Subscription/Subscription';
 import WhyUs from '../WhyUs/WhyUs';
 
 const App = () => {
+  const [matches, setMatches] = useState(
+    window.matchMedia('(min-width: 600px)').matches
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia('(min-width: 600px)')
+      .addEventListener('change', (e) => setMatches(e.matches));
+  }, []);
+
   return (
     <>
       <Section>
@@ -17,12 +35,25 @@ const App = () => {
           </Description>
         </Container>
       </Section>
-      <Section>
-        <Subscription />
-      </Section>
-      <Section>
-        <WhyUs />
-      </Section>
+      {!matches ? (
+        <>
+          <Section>
+            <Subscription />
+          </Section>
+          <Section>
+            <WhyUs />
+          </Section>
+        </>
+      ) : (
+        <DesktopContainer>
+          <Section>
+            <Subscription />
+          </Section>
+          <Section>
+            <WhyUs />
+          </Section>
+        </DesktopContainer>
+      )}
     </>
   );
 };
